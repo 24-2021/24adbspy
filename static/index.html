@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24adbspy</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lib/xterm.css" />
+    <script src="lib/xterm.js"></script>
+    <script src="lib/xterm-addon-fit.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>24adbspy</h1>
+            <div class="connect-control">
+                <input type="text" id="connect-address" placeholder="ip:port (e.g. 192.168.1.5:5555)">
+                <button id="connect-btn">Connect</button>
+            </div>
+            <div class="device-selector">
+                <label for="device-select">Device:</label>
+                <select id="device-select">
+                    <option value="">Select a device</option>
+                </select>
+                <button id="refresh-devices">Refresh</button>
+            </div>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="shell">Shell</button>
+            <button class="tab-btn" data-tab="terminal">Terminal (Interactive)</button>
+            <button class="tab-btn" data-tab="files">Files</button>
+            <button class="tab-btn" data-tab="screenshot">Screenshot</button>
+            <button class="tab-btn" data-tab="spy-info">Spy Info</button>
+        </nav>
+
+        <div id="shell" class="tab-content active">
+            <div id="terminal-output"></div>
+            <form id="shell-form">
+                <input type="text" id="shell-input" placeholder="Enter command (e.g., ls, ps)" autocomplete="off">
+                <button type="submit">Run</button>
+            </form>
+        </div>
+
+        <div id="terminal" class="tab-content">
+            <div id="xterm-container" style="height: 100%; width: 100%; background: black;"></div>
+        </div>
+
+        <div id="files" class="tab-content">
+            <div class="file-manager-container">
+                <div class="file-sidebar">
+                    <div class="sidebar-header">Quick Access</div>
+                    <div class="file-tree" id="file-tree">
+                        <!-- Tree items will be populated here -->
+                        <div class="tree-item" data-path="/">/ (Root)</div>
+                        <div class="tree-item" data-path="/sdcard">/sdcard</div>
+                        <div class="tree-item" data-path="/sdcard/Download">/sdcard/Download</div>
+                        <div class="tree-item" data-path="/sdcard/DCIM">/sdcard/DCIM</div>
+                        <div class="tree-item" data-path="/data/local/tmp">/data/local/tmp</div>
+                    </div>
+                </div>
+                <div class="file-main">
+                    <div class="file-controls">
+                        <button id="up-path">↑ Up</button>
+                        <div class="breadcrumbs" id="breadcrumbs"></div>
+                        <input type="text" id="current-path" value="/sdcard" class="hidden"> <!-- Hidden but used for state -->
+                        <button id="go-path" class="hidden">Go</button>
+                        <input type="file" id="upload-input" style="display: none;">
+                        <button id="upload-trigger-btn">Upload File</button>
+                        <button id="upload-btn" class="hidden">Confirm Upload</button>
+                    </div>
+                    <div class="file-list-header">
+                        <span>Name</span>
+                        <span>Size</span>
+                        <span>Date</span>
+                        <span>Actions</span>
+                    </div>
+                    <div id="file-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="screenshot" class="tab-content">
+            <div class="screenshot-controls">
+                <button id="capture-btn">Capture New</button>
+            </div>
+            <div class="screenshot-display">
+                <img id="screenshot-img" src="" alt="Screenshot will appear here">
+            </div>
+        </div>
+
+        <div id="spy-info" class="tab-content">
+            <div class="spy-controls">
+                <button class="spy-btn" data-type="contacts">Get Contacts</button>
+                <button class="spy-btn" data-type="sms">Get SMS</button>
+                <button class="spy-btn" data-type="location">Get Location</button>
+                <button class="spy-btn" data-type="wifi">Get WiFi Info</button>
+            </div>
+            <div id="spy-output" class="spy-output">Select an action to view data...</div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

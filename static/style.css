@@ -1,0 +1,343 @@
+:root {
+    --bg-color: #1e1e1e;
+    --sidebar-bg: #252526;
+    --content-bg: #1e1e1e;
+    --header-bg: #333333;
+    --text-color: #cccccc;
+    --accent-color: #007bff;
+    --border-color: #3e3e42;
+    --hover-color: #2a2d2e;
+    --input-bg: #3c3c3c;
+    --input-text: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--header-bg);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.connect-control, .device-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+input[type="text"], select {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--border-color);
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+button {
+    padding: 5px 15px;
+    cursor: pointer;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.tabs {
+    display: flex;
+    background-color: var(--header-bg);
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+}
+
+.tab-btn.active {
+    background-color: var(--bg-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.tab-content {
+    display: none;
+    background-color: var(--bg-color);
+    padding: 20px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Shell */
+#shell {
+    padding: 10px;
+}
+
+#terminal-output {
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Consolas', monospace;
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+#shell-form {
+    display: flex;
+    gap: 10px;
+}
+
+#shell-input {
+    flex-grow: 1;
+}
+
+/* File Manager Layout */
+.file-manager-container {
+    display: flex;
+    height: 100%;
+    border: 1px solid var(--border-color);
+}
+
+.file-sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.file-tree {
+    padding: 10px 0;
+}
+
+.tree-item {
+    padding: 5px 10px 5px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tree-item:hover {
+    background-color: var(--hover-color);
+}
+
+.tree-item.active {
+    background-color: #37373d;
+    color: white;
+}
+
+.file-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--content-bg);
+}
+
+.file-controls {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    background-color: var(--header-bg);
+}
+
+.breadcrumbs {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    background-color: var(--input-bg);
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.breadcrumb-item {
+    cursor: pointer;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.breadcrumb-item:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.breadcrumb-separator {
+    margin: 0 5px;
+    color: #888;
+}
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.5fr 2fr;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--sidebar-bg);
+}
+
+#file-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.5fr 2fr;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    cursor: pointer;
+}
+
+/* ... */
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.5fr 2fr;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--sidebar-bg);
+}
+
+.file-actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.file-actions button {
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+.file-item:hover {
+    background-color: var(--hover-color);
+}
+
+.file-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-icon {
+    width: 20px;
+    text-align: center;
+}
+
+.file-item.is-dir .file-name {
+    font-weight: 500;
+}
+
+/* Screenshot */
+.screenshot-controls {
+    padding: 10px;
+    text-align: center;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.screenshot-display {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #000;
+    overflow: auto;
+}
+
+#screenshot-img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Spy Info */
+.spy-controls {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.spy-output {
+    padding: 20px;
+    white-space: pre-wrap;
+    font-family: monospace;
+    overflow: auto;
+    flex-grow: 1;
+}
+
+/* Utilities */
+.hidden {
+    display: none;
+}
