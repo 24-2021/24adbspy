@@ -117,11 +117,11 @@ https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 
 ### 文件管理
 
-![image-20251225124745176](./img/image-20251225124745176.png)
+![image-20251230122424389](./img/image-20251230122424389.png)
 
-![image-20251225124803433](./img/image-20251225124803433.png)
+![image-20251230122518420](./img/image-20251230122515084.png)
 
-![image-20251225124822178](./img/image-20251225124822178.png)
+![image-20251230122548752](./img/image-20251230122548752.png)
 
 ### 截图
 
@@ -129,7 +129,7 @@ https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 
 ### 获取敏感信息（目前存在一些问题）
 
-![image-20251225124852843](./img/image-20251225124852843.png)
+![image-20251230122639733](./img/image-20251230122639733.png)
 
 ## 许可
 
