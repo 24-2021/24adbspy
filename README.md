@@ -125,7 +125,7 @@ https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 
 ### 截图
 
-![image-20251225124841678](./img/image-20251225124841678.png)
+![image-20251230123226958](./img/image-20251230123226958.png)
 
 ### 获取敏感信息（目前存在一些问题）
 
