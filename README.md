@@ -127,10 +127,11 @@ https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 
 ![image-20251230123226958](./img/image-20251230123226958.png)
 
-### 获取敏感信息（目前存在一些问题）
+### 获取敏感信息
 
 ![image-20251230122639733](./img/image-20251230122639733.png)
 
 ## 许可
 
 此项目仅用于学习与研究目的，使用者需自行承担相应风险与责任。
+
