@@ -36,9 +36,90 @@ document.addEventListener('DOMContentLoaded', () => {
     const spyBtns = document.querySelectorAll('.spy-btn');
     const spyOutput = document.getElementById('spy-output');
 
-    let currentSerial = '';
+    // Settings
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    let currentLang = 'en';
+    let currentTheme = 'dark';
+
+    const i18n = {
+        en: {
+            device: 'Device:',
+            select_device: 'Select a device',
+            refresh: 'Refresh',
+            tab_shell: 'Shell',
+            tab_terminal: 'Terminal (Interactive)',
+            tab_files: 'Files',
+            tab_screenshot: 'Screenshot',
+            tab_spy_info: 'Spy Info',
+            tab_control: 'Control',
+            btn_contacts: 'Get Contacts',
+            btn_sms: 'Get SMS',
+            btn_location: 'Get Location',
+            btn_wifi: 'Get WiFi Info',
+            btn_battery: 'Get Battery',
+            btn_cpu: 'Get CPU',
+            btn_version: 'Get Android Version',
+            btn_model: 'Get Model',
+            connect: 'Connect',
+            connecting: 'Connecting...',
+            connected: 'Connected'
+        },
+        cn: {
+            device: '设备:',
+            select_device: '选择设备',
+            refresh: '刷新',
+            tab_shell: 'Shell',
+            tab_terminal: '终端 (交互式)',
+            tab_files: '文件管理',
+            tab_screenshot: '屏幕截图',
+            tab_spy_info: '信息获取',
+            tab_control: '设备控制',
+            btn_contacts: '获取联系人',
+            btn_sms: '获取短信',
+            btn_location: '获取位置',
+            btn_wifi: '获取WiFi',
+            btn_battery: '获取电池',
+            btn_cpu: '获取CPU',
+            btn_version: '获取安卓版本',
+            btn_model: '获取型号',
+            connect: '连接',
+            connecting: '连接中...',
+            connected: '已连接'
+        }
+    };
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[lang][key]) {
+                el.textContent = i18n[lang][key];
+            }
+        });
+        langToggleBtn.textContent = lang === 'en' ? 'CN' : 'EN';
+    }
+
+    function toggleTheme() {
+        if (document.body.classList.contains('light-theme')) {
+            document.body.classList.remove('light-theme');
+            themeToggleBtn.textContent = '🌗';
+            currentTheme = 'dark';
+        } else {
+            document.body.classList.add('light-theme');
+            themeToggleBtn.textContent = '☀️';
+            currentTheme = 'light';
+        }
+    }
+
+    langToggleBtn.addEventListener('click', () => {
+        setLanguage(currentLang === 'en' ? 'cn' : 'en');
+    });
+
+    themeToggleBtn.addEventListener('click', toggleTheme);
 
     // Init
+    let currentSerial = '';
     fetchDevices();
 
     // Event Listeners
@@ -474,9 +555,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Spy Info Logic
+    // const spyBtns = document.querySelectorAll('.spy-btn'); // Removed duplicate declaration
     spyBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
-            if (!currentSerial) return alert('Please select a device');
+            if (!currentSerial) {
+                alert(currentLang === 'cn' ? '请选择设备' : 'Please select a device');
+                return;
+            }
             const type = btn.dataset.type;
             
             spyOutput.textContent = 'Loading...';
@@ -492,17 +577,75 @@ document.addEventListener('DOMContentLoaded', () => {
                      if (data.data && data.data.length > 0) {
                          spyOutput.textContent = JSON.stringify(data.data, null, 2);
                      } else {
-                         spyOutput.textContent = 'No data found or permission denied. Raw output:\n' + data.raw;
+                         spyOutput.textContent = (currentLang === 'cn' ? '未找到数据或无权限。原始输出：\n' : 'No data found or permission denied. Raw output:\n') + (data.raw || '');
                      }
-                } else if (type === 'location' || type === 'wifi') {
+                } else if (type === 'version') {
+                     spyOutput.textContent = (currentLang === 'cn' ? '安卓版本: ' : 'Android Version: ') + (data.data || data.raw || '');
+                } else {
+                    // Generic handler for location, wifi, battery, cpu, version, model
                     if (Array.isArray(data.data)) {
                         spyOutput.textContent = data.data.join('\n') || data.raw;
                     } else {
-                        spyOutput.textContent = data.data || data.raw;
+                        spyOutput.textContent = data.data || data.raw || JSON.stringify(data);
                     }
                 }
             } catch (err) {
                 spyOutput.textContent = 'Error: ' + err.message;
+            }
+        });
+    });
+
+    // Control Tab Logic
+    const controlBtns = document.querySelectorAll('.control-btn');
+    const controlStatus = document.getElementById('control-status');
+
+    controlBtns.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            if (!currentSerial) return alert('Please select a device');
+            
+            const action = btn.dataset.action;
+            let cmd = '';
+
+            switch (action) {
+                case 'calculator':
+                    cmd = 'am start -n com.oneplus.calculator/.Calculator';
+                    break;
+                case 'volume-up':
+                    cmd = 'input keyevent 24';
+                    break;
+                case 'volume-down':
+                    cmd = 'input keyevent 25';
+                    break;
+                case 'home':
+                    cmd = 'input keyevent 3';
+                    break;
+                case 'back':
+                    cmd = 'input keyevent 4';
+                    break;
+                case 'lock':
+                    cmd = 'input keyevent 276';
+                    break;
+            }
+
+            if (!cmd) return;
+
+            controlStatus.textContent = `Executing: ${cmd}...`;
+            
+            try {
+                const res = await fetch('/api/shell', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ serial: currentSerial, command: cmd })
+                });
+                const data = await res.json();
+                
+                if (data.error) {
+                    controlStatus.textContent = `Error: ${data.error}`;
+                } else {
+                    controlStatus.textContent = `Success: ${data.output || 'Command executed'}`;
+                }
+            } catch (err) {
+                controlStatus.textContent = `Request Failed: ${err.message}`;
             }
         });
     });

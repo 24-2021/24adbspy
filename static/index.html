@@ -18,20 +18,25 @@
                 <button id="connect-btn">Connect</button>
             </div>
             <div class="device-selector">
-                <label for="device-select">Device:</label>
+                <label for="device-select" data-i18n="device">Device:</label>
                 <select id="device-select">
-                    <option value="">Select a device</option>
+                    <option value="" data-i18n="select_device">Select a device</option>
                 </select>
-                <button id="refresh-devices">Refresh</button>
+                <button id="refresh-devices" data-i18n="refresh">Refresh</button>
+            </div>
+            <div class="settings-control">
+                <button id="lang-toggle">CN/EN</button>
+                <button id="theme-toggle">🌗</button>
             </div>
         </header>
 
         <nav class="tabs">
-            <button class="tab-btn active" data-tab="shell">Shell</button>
-            <button class="tab-btn" data-tab="terminal">Terminal (Interactive)</button>
-            <button class="tab-btn" data-tab="files">Files</button>
-            <button class="tab-btn" data-tab="screenshot">Screenshot</button>
-            <button class="tab-btn" data-tab="spy-info">Spy Info</button>
+            <button class="tab-btn active" data-tab="shell" data-i18n="tab_shell">Shell</button>
+            <button class="tab-btn" data-tab="terminal" data-i18n="tab_terminal">Terminal (Interactive)</button>
+            <button class="tab-btn" data-tab="files" data-i18n="tab_files">Files</button>
+            <button class="tab-btn" data-tab="screenshot" data-i18n="tab_screenshot">Screenshot</button>
+            <button class="tab-btn" data-tab="spy-info" data-i18n="tab_spy_info">Spy Info</button>
+            <button class="tab-btn" data-tab="control" data-i18n="tab_control">Control</button>
         </nav>
 
         <div id="shell" class="tab-content active">
@@ -91,12 +96,28 @@
 
         <div id="spy-info" class="tab-content">
             <div class="spy-controls">
-                <button class="spy-btn" data-type="contacts">Get Contacts</button>
-                <button class="spy-btn" data-type="sms">Get SMS</button>
-                <button class="spy-btn" data-type="location">Get Location</button>
-                <button class="spy-btn" data-type="wifi">Get WiFi Info</button>
+                <button class="spy-btn" data-type="contacts" data-i18n="btn_contacts">Get Contacts</button>
+                <button class="spy-btn" data-type="sms" data-i18n="btn_sms">Get SMS</button>
+                <button class="spy-btn" data-type="location" data-i18n="btn_location">Get Location</button>
+                <button class="spy-btn" data-type="wifi" data-i18n="btn_wifi">Get WiFi Info</button>
+                <button class="spy-btn" data-type="battery" data-i18n="btn_battery">Get Battery</button>
+                <button class="spy-btn" data-type="cpu" data-i18n="btn_cpu">Get CPU</button>
+                <button class="spy-btn" data-type="version" data-i18n="btn_version">Get Version</button>
+                <button class="spy-btn" data-type="model" data-i18n="btn_model">Get Model</button>
             </div>
             <div id="spy-output" class="spy-output">Select an action to view data...</div>
+        </div>
+
+        <div id="control" class="tab-content">
+            <div class="control-grid">
+                <button class="control-btn" data-action="calculator">Launch Calculator</button>
+                <button class="control-btn" data-action="volume-up">Volume +</button>
+                <button class="control-btn" data-action="volume-down">Volume -</button>
+                <button class="control-btn" data-action="home">Home</button>
+                <button class="control-btn" data-action="back">Back</button>
+                <button class="control-btn" data-action="lock">Lock Screen</button>
+            </div>
+            <div id="control-status" class="status-output"></div>
         </div>
     </div>
     <script src="app.js"></script>

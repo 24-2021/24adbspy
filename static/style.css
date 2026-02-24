@@ -11,6 +11,19 @@
     --input-text: #ffffff;
 }
 
+body.light-theme {
+    --bg-color: #f3f3f3;
+    --sidebar-bg: #e0e0e0;
+    --content-bg: #ffffff;
+    --header-bg: #dddddd;
+    --text-color: #333333;
+    --accent-color: #0056b3;
+    --border-color: #cccccc;
+    --hover-color: #d4d4d4;
+    --input-bg: #ffffff;
+    --input-text: #000000;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -46,10 +59,14 @@ h1 {
     font-size: 1.2rem;
 }
 
-.connect-control, .device-selector {
+.connect-control, .device-selector, .settings-control {
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+#connect-address {
+    width: 280px;
 }
 
 input[type="text"], select {
@@ -340,4 +357,36 @@ button:disabled {
 /* Utilities */
 .hidden {
     display: none;
+}
+
+/* Control Tab */
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.control-btn {
+    padding: 15px;
+    font-size: 16px;
+    background-color: #444;
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.control-btn:hover {
+    background-color: #555;
+}
+
+.status-output {
+    padding: 0 20px;
+    color: #888;
+    font-family: monospace;
 }
